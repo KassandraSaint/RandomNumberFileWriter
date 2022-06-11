@@ -49,6 +49,38 @@ namespace RandomNumberFileWriter
                     }
                     // Closing the file
                     outputFile.Close();
+                    // Trying to read a file and show it's contents in the ListBox
+                    try
+                    {
+                        // Initializing a variable to hold number retrieved from the document
+                        string fileNum;
+
+                        // Creating a StreamReader to read data from the file
+                        StreamReader inputFile;
+                        // Retrieving a path from saved file
+                        string path = saveFile.FileName;
+                        // Opening saved file to read from
+                        inputFile = File.OpenText(path);
+
+                        // Clearing ListBox area
+                        numberListBox.Items.Clear();
+
+                        // Reading opened file and showing contents in the ListBox
+                        while (!inputFile.EndOfStream)
+                        {
+                            // Reading each number to a fileNum variable
+                            fileNum = inputFile.ReadLine();
+                            // Adding each number read from the file to a ListBox
+                            numberListBox.Items.Add(fileNum);
+                        }
+                        // Closing a file
+                        inputFile.Close();
+                    }
+                    // If file couldn't be opened showing exception message
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Couldn't read your file!");
+                    }
                 }
                 else
                 {
@@ -61,8 +93,8 @@ namespace RandomNumberFileWriter
                 // Showing a message if input was wrong
                 MessageBox.Show("Wrong input. Enter a valid intager number.");
             }
-        }
 
+        }
         private void closeBtn_Click(object sender, EventArgs e)
         {
             // Closing the form
